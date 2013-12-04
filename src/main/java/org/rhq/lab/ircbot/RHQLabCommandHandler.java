@@ -23,11 +23,17 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
 	
 	@Override
 	public void onPrivateMessage(PrivateMessageEvent<PircBotX> event) throws Exception {
+		if (StringUtils.isBlank(event.getMessage())) {
+			return;
+		}
+		
+		String rhqlabCmd = "-o " + event.getUser().getNick() + " " + event.getMessage();
 	
-		String[] output = new CmdLineExecutor().execute(event.getMessage().split(" "));
+       	System.out.println(rhqlabCmd);
+
+		String[] output = new CmdLineExecutor().execute(rhqlabCmd.split(" "));
 		for(String s:output) {
 			event.respond(s);
 		}
-       	System.out.println(event.getUser().getNick() + " > " +event.getMessage());
     }
 }
