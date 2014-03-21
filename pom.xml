@@ -53,8 +53,12 @@
 			    </descriptorRefs>
 			    <archive>
             		<manifest>
+            			<addClasspath>true</addClasspath>
               			<mainClass>org.rhq.lab.ircbot.App</mainClass>
 		            </manifest>
+		            <manifestEntries>
+                 		<Class-Path>templates/</Class-Path>
+              		</manifestEntries>
 		        </archive>
 			  </configuration>
 			  <executions>
