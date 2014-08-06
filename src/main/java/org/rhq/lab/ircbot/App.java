@@ -12,6 +12,8 @@ import org.pircbotx.Configuration.Builder;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
+import org.vnguyen.geard.Builders;
+import org.vnguyen.geard.GeardClient;
 
 
 public class App extends ListenerAdapter<PircBotX> implements Listener<PircBotX> {
@@ -26,11 +28,14 @@ public class App extends ListenerAdapter<PircBotX> implements Listener<PircBotX>
 	protected List<String> ircChannels = new ArrayList<String>();	
 	
 	public void start() {
+
+		GeardClient geardClient = new GeardClient("http://localhost:43273");
+		
     	Builder<PircBotX> config = new Configuration.Builder<PircBotX>()
     	        .setName(ircNick) 
     	        .setAutoNickChange(true)
     	        .setServer(ircServer, 6667)
-    	        .addListener(new RHQLabCommandHandler());
+    	        .addListener(new RHQLabCommandHandler(geardClient));
     	
     	for(String channel:ircChannels) {
     		config.addAutoJoinChannel(channel);
