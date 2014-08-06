@@ -1,0 +1,12 @@
+{ 
+	"Image": "docker-registry.usersys.redhat.com/jon_qe/jon33:dr1",
+ 	"Start": false,
+ 	"Ports":[{"Internal":7080, "External":0}],
+	"NetworkLinks": [
+    {
+      "FromHost": "127.0.0.1",
+      "FromPort": 5432,
+      "ToHost": "",
+      "ToPort": 0
+    }]
+}
