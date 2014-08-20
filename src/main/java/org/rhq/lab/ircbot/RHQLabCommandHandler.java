@@ -8,6 +8,7 @@ import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.PrivateMessageEvent;
 import org.rhq.lab.ircbot.gearbox.GearBox;
 import org.rhq.lab.ircbot.gearbox.JON33;
+import org.rhq.lab.ircbot.gearbox.JON33ER1;
 import org.rhq.lab.ircbot.gearbox.RHQMaster;
 import org.vnguyen.geard.Builders;
 import org.vnguyen.geard.GearAPI;
@@ -40,22 +41,29 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
        	try {
 	       	GearBox gearBox;
 	       	switch (event.getMessage()) {
-		       	case "!jon33": 
+	       		case "!jon33er1": 
+	       		gearBox = new JON33ER1(builders)
+	       								.createdBy(safeNick)
+										.build();
+	       		break;
+	       		
+	       		case "!jon33dr1": 
 		       		gearBox = new JON33(builders)
-											.withPrefix(safeNick +"-")
+		       								.createdBy(safeNick)
 											.build();
 		       		break;
 		       		
 		       	case "!rhqmaster": 
 		       		gearBox = new RHQMaster(builders)
-		       								.withPrefix(safeNick +"-")
+		       								.createdBy(safeNick)
 		       								.build();
 		       		break;
 		       		
 		       	default: 
 					event.respond("** Welcome to RHQLAB Geard + Docker experimental project **");
-					event.respond("   Available commands:  ");
-					event.respond("     !jon33  ");
+					event.respond("   Available commands:  (response time is approximately 2 minutes)");
+					event.respond("     !jon33er1  ");
+					event.respond("     !jon33dr1  ");
 					event.respond("     !rhqmaster  ");		
 					return;
 	       			
@@ -64,6 +72,7 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
 		       	for(String s : gearBox.toMultilineString()) {
 		       		event.respond(s);
 		       	}	
+		       	event.respond("Enjoy!");
        	} catch(Exception e) {
        		event.respond(e.toString());
        		System.out.println(e);

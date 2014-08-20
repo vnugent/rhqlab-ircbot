@@ -3,21 +3,31 @@ package org.rhq.lab.ircbot.gearbox;
 import java.util.List;
 
 import org.vnguyen.geard.Builders;
+import org.vnguyen.geard.EnvVariable;
+import org.vnguyen.geard.Environment;
 import org.vnguyen.geard.Gear;
 import org.vnguyen.geard.ServiceEndpoint;
 
 import com.google.common.collect.ImmutableList;
 
 public class DefaultRHQGearBox implements GearBox {
+	protected String creator;
 	protected String psqlJSONFile;
 	protected String rhqServerJSONFile;
 	protected Gear psqlGear;
 	protected Gear rhqServerGear;
 	protected String prefix = "";
+	protected List<EnvVariable> envVars = ImmutableList.<EnvVariable>of();
 	protected Builders  builders;
 	
 	public DefaultRHQGearBox(Builders builders) {
 		this.builders = builders;
+	}
+	
+	@Override
+	public DefaultRHQGearBox createdBy(String id) {
+		this.creator = id;
+		return this;
 	}
 	
 	public DefaultRHQGearBox withPrefix(String prefix) {
@@ -36,13 +46,18 @@ public class DefaultRHQGearBox implements GearBox {
 	}
 	
 	public DefaultRHQGearBox build() {
+		EnvVariable envVar = new EnvVariable("SERVICE_TAGS", creator);
+		Environment env = Environment.create("psql-env", ImmutableList.<EnvVariable>of(envVar));
 		psqlGear = builders.fromTemplate(psqlJSONFile)
-				.withNamePrefix(prefix)
+				.withNamePrefix(creator+"-psql-")
+				.withEnvironment(env)
 				.build();
 
+		Environment env2 = Environment.create("rhq-server-env", ImmutableList.<EnvVariable>of(envVar));
 
 		rhqServerGear = builders.fromTemplate(rhqServerJSONFile)
-			.withNamePrefix(prefix + "-jon-")
+			.withNamePrefix(creator + "-rhq-")
+			.withEnvironment(env2)
 			.linkTo(psqlGear)
 			.build();	
 		return this;
@@ -63,5 +78,12 @@ public class DefaultRHQGearBox implements GearBox {
 		final String rhq = "rhq server: " + rhqServerGear.endpoints().get(7080).toStringSimple();
 		return new  String[] {psql, rhq};
 	}
+
+	@Override
+	public GearBox withEnv(List<EnvVariable> envs) {
+		envVars = envs;
+		return this;
+	}
+
 
 }
