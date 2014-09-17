@@ -1,7 +1,5 @@
 package org.rhq.lab.ircbot;
 
-import java.net.URISyntaxException;
-
 import org.apache.commons.lang3.StringUtils;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
@@ -9,9 +7,11 @@ import org.pircbotx.hooks.events.PrivateMessageEvent;
 import org.rhq.lab.ircbot.gearbox.GearBox;
 import org.rhq.lab.ircbot.gearbox.JON33;
 import org.rhq.lab.ircbot.gearbox.JON33ER1;
+import org.rhq.lab.ircbot.gearbox.JON33ER2;
+import org.rhq.lab.ircbot.gearbox.JON33ER3;
+import org.rhq.lab.ircbot.gearbox.RHQManual;
 import org.rhq.lab.ircbot.gearbox.RHQMaster;
 import org.vnguyen.geard.Builders;
-import org.vnguyen.geard.GearAPI;
 import org.vnguyen.geard.GeardClient;
 
 
@@ -41,8 +41,21 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
        	try {
 	       	GearBox gearBox;
 	       	switch (event.getMessage()) {
+	
+	       		case "!jon33er3": 
+	       			gearBox = new JON33ER3(builders)
+	       								.createdBy(safeNick)
+										.build();
+	       		break;	       	
+	       	
+	       		case "!jon33er2": 
+	       			gearBox = new JON33ER2(builders)
+	       								.createdBy(safeNick)
+										.build();
+	       		break;
+	       	
 	       		case "!jon33er1": 
-	       		gearBox = new JON33ER1(builders)
+	       			gearBox = new JON33ER1(builders)
 	       								.createdBy(safeNick)
 										.build();
 	       		break;
@@ -62,9 +75,12 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
 		       	default: 
 					event.respond("** Welcome to RHQLAB Geard + Docker experimental project **");
 					event.respond("   Available commands:  (response time is approximately 2 minutes)");
-					event.respond("     !jon33er1  ");
-					event.respond("     !jon33dr1  ");
-					event.respond("     !rhqmaster  ");		
+					event.respond("     !jon33er3");					
+					event.respond("     !jon33er2");
+					event.respond("     !jon33er1");
+					event.respond("     !jon33dr1");
+					event.respond("     !rhqmaster");		
+					
 					return;
 	       			
 	       		}// switch
@@ -75,7 +91,7 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
 		       	event.respond("Enjoy!");
        	} catch(Exception e) {
        		event.respond(e.toString());
-       		System.out.println(e);
+       		e.printStackTrace();
        	}
 	}
     

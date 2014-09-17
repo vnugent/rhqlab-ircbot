@@ -29,7 +29,7 @@ public class App extends ListenerAdapter<PircBotX> implements Listener<PircBotX>
 	
 	public void start() {
 
-		GeardClient geardClient = new GeardClient("http://localhost:43273");
+		GeardClient geardClient = new GeardClient("http://10.16.23.29:43273");
 		
     	Builder<PircBotX> config = new Configuration.Builder<PircBotX>()
     	        .setName(ircNick) 

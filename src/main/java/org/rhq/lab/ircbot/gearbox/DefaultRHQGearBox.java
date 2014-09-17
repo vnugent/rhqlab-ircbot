@@ -53,7 +53,8 @@ public class DefaultRHQGearBox implements GearBox {
 				.withEnvironment(env)
 				.build();
 
-		Environment env2 = Environment.create("rhq-server-env", ImmutableList.<EnvVariable>of(envVar));
+		EnvVariable envVar2 = new EnvVariable("RHQ_SERVER_DEBUG", "true");		
+		Environment env2 = Environment.create("rhq-server-env", ImmutableList.<EnvVariable>of(envVar2));
 
 		rhqServerGear = builders.fromTemplate(rhqServerJSONFile)
 			.withNamePrefix(creator + "-rhq-")
