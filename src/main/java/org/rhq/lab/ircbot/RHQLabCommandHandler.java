@@ -10,7 +10,6 @@ import org.rhq.lab.ircbot.gearbox.JON33ER1;
 import org.rhq.lab.ircbot.gearbox.JON33ER2;
 import org.rhq.lab.ircbot.gearbox.JON33ER3;
 import org.rhq.lab.ircbot.gearbox.JON33ER4;
-import org.rhq.lab.ircbot.gearbox.RHQManual;
 import org.rhq.lab.ircbot.gearbox.RHQMaster;
 import org.vnguyen.geard.Builders;
 import org.vnguyen.geard.GeardClient;

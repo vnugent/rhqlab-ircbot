@@ -1,5 +1,5 @@
 { 
-	"Image": "docker-registry.usersys.redhat.com/jon_qe/jon33:er3",
+	"Image": "docker-registry.usersys.redhat.com/jon_qe/jon33:er4",
  	"Start": false,
  	"Ports":[{"Internal":7080, "External":0}],
 	"NetworkLinks": [
