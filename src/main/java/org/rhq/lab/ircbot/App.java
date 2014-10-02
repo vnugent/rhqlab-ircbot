@@ -12,7 +12,6 @@ import org.pircbotx.Configuration.Builder;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.Listener;
 import org.pircbotx.hooks.ListenerAdapter;
-import org.vnguyen.geard.Builders;
 import org.vnguyen.geard.GeardClient;
 
 

@@ -9,6 +9,7 @@ import org.rhq.lab.ircbot.gearbox.JON33;
 import org.rhq.lab.ircbot.gearbox.JON33ER1;
 import org.rhq.lab.ircbot.gearbox.JON33ER2;
 import org.rhq.lab.ircbot.gearbox.JON33ER3;
+import org.rhq.lab.ircbot.gearbox.JON33ER4;
 import org.rhq.lab.ircbot.gearbox.RHQManual;
 import org.rhq.lab.ircbot.gearbox.RHQMaster;
 import org.vnguyen.geard.Builders;
@@ -18,11 +19,9 @@ import org.vnguyen.geard.GeardClient;
 public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
 	public static final String RHQLAB = "!lab";
 
-	private GeardClient geard;
 	private Builders builders;
 	
 	public RHQLabCommandHandler(GeardClient geard) {
-		this.geard = geard;
 		builders = new Builders(geard);
 	}
 	
@@ -41,7 +40,12 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
        	try {
 	       	GearBox gearBox;
 	       	switch (event.getMessage()) {
-	
+	       		case "!jon33er4": 
+	       			gearBox = new JON33ER4(builders)
+	       								.createdBy(safeNick)
+										.build();
+	       		break;	       
+	       		
 	       		case "!jon33er3": 
 	       			gearBox = new JON33ER3(builders)
 	       								.createdBy(safeNick)
@@ -75,6 +79,7 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
 		       	default: 
 					event.respond("** Welcome to RHQLAB Geard + Docker experimental project **");
 					event.respond("   Available commands:  (response time is approximately 2 minutes)");
+					event.respond("     !jon33er4");					
 					event.respond("     !jon33er3");					
 					event.respond("     !jon33er2");
 					event.respond("     !jon33er1");
