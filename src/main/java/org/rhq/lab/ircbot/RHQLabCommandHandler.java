@@ -22,8 +22,8 @@ public class RHQLabCommandHandler extends ListenerAdapter<PircBotX> {
 		
 		String rhqlabCmd = "-o " + safeNick + " " + event.getMessage();
 	
-       	System.out.println(rhqlabCmd);
-
+		System.out.println(rhqlabCmd);
+		event.respond("Processing your request. Please wait.");
 		String[] output = new CmdLineExecutor().execute(rhqlabCmd.split(" "));
 		for(String s:output) {
 			event.respond(s);
